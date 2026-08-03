@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FARMER
+  DOCTOR
+  ADMIN
+}
+
+enum ApptStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+}
+
+model User {
+  id             String        @id @default(uuid())
+  name           String
+  phone          String        @unique
+  email          String?       @unique
+  role           Role          @default(FARMER)
+  preferred_lang String        @default("hi")
+  createdAt      DateTime      @default(now())
+  goats          Goat[]
+  appointments   Appointment[] @relation("FarmerAppointments")
+  consultations  Appointment[] @relation("DoctorAppointments")
+  donations      Donation[]
+}
+
+model Goat {
+  id           String   @id @default(uuid())
+  farmerId     String
+  tagNumber    String   @unique
+  breed        String?
+  dateOfBirth  DateTime?
+  healthScore  Int      @default(100)
+  farmer       User     @relation(fields: [farmerId], references: [id])
+  scans        Scan[]
+}
+
+model Scan {
+  id              String   @id @default(uuid())
+  goatId          String
+  imageUrl        String
+  detectedDisease String
+  confidence      Float
+  scanDate        DateTime @default(now())
+  goat            Goat     @relation(fields: [goatId], references: [id])
+}
+
+model Appointment {
+  id           String     @id @default(uuid())
+  farmerId     String
+  doctorId     String
+  scheduledFor DateTime
+  status       ApptStatus @default(PENDING)
+  meetingLink  String?
+  farmer       User       @relation("FarmerAppointments", fields: [farmerId], references: [id])
+  doctor       User       @relation("DoctorAppointments", fields: [doctorId], references: [id])
+}
+
+model Donation {
+  id        String   @id @default(uuid())
+  donorId   String
+  amount    Float
+  status    String
+  txnId     String   @unique
+  date      DateTime @default(now())
+  donor     User     @relation(fields: [donorId], references: [id])
+}
+
+// The Knowledge Hub Table for Goat Breeds
+model Breed {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  origin      String
+  purpose     String   // e.g., "Meat, Milk, or Both"
+  weightRange String   // e.g., "40-60 kg"
+  climate     String   // e.g., "Hot and dry"
+  description String
+  imageUrl    String?  // Optional link to a picture of the goat
+  created_at  DateTime @default(now())
+}
