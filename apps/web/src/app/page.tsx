@@ -86,14 +86,8 @@ export default function Home() {
 
           <div className="flex gap-4 items-center">
             {/* Language Selector */}
-            <select className="bg-slate-100 border-none text-slate-800 font-bold text-xs p-2 rounded-md focus:outline-none cursor-pointer hidden md:block">
-              <option value="en">English</option>
-              <option value="hi">हिन्दी</option>
-              <option value="mr">मराठी</option>
-              <option value="bn">বাংলা</option>
-              <option value="te">తెలుగు</option>
-              <option value="tcy">ತುಳು</option>
-            </select>
+            {/* The Real Google Translate Widget */}
+            <div id="google_translate_element" className="hidden md:flex items-center justify-center"></div>
 
             <Link href="/login" className="text-sm font-bold text-slate-800 hover:text-green-800 transition hidden sm:block">
               Log In
