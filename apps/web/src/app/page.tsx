@@ -5,6 +5,22 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
+  const [selectedLang, setSelectedLang] = useState('en');
+
+  // Language Change Handler that triggers Google Translate
+  const handleLanguageChange = (langCode: string) => {
+    setSelectedLang(langCode);
+    const combo = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (combo) {
+      combo.value = langCode;
+      combo.dispatchEvent(new Event('change'));
+    } else {
+      document.cookie = `googtrans=/en/${langCode}; path=/`;
+      document.cookie = `googtrans=/en/${langCode}; domain=.${window.location.hostname}; path=/`;
+      window.location.reload();
+    }
+  };
+
   // Chatbot State
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -87,9 +103,20 @@ export default function Home() {
 
           <div className="flex gap-4 items-center">
             {/* Language Selector */}
-            <div className="hidden md:flex items-center gap-1.5 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-200 shadow-sm hover:border-green-600 hover:shadow transition">
+            <div className="hidden md:flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3.5 py-1.5 rounded-full border border-slate-300 shadow-sm hover:border-green-600 focus-within:border-green-600 transition">
               <span className="text-base leading-none">🌐</span>
-              <div id="google_translate_element" className="flex items-center justify-center"></div>
+              <select
+                value={selectedLang}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                className="bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer pr-1"
+              >
+                <option value="en">English</option>
+                <option value="hi">हिंदी (Hindi)</option>
+                <option value="mr">मराठी (Marathi)</option>
+                <option value="bn">বাংলা (Bengali)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+              </select>
+              <div id="google_translate_element" className="hidden"></div>
             </div>
 
             <Link href="/login" className="text-sm font-bold text-slate-800 hover:text-green-800 transition hidden sm:block">
