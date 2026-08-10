@@ -12,10 +12,10 @@ export default function Dashboard() {
   const [stats, setStats] = useState({ total: 3, healthScore: 92, pendingScans: 1 });
 
   return (
-    <div className="min-h-screen bg-stone-50 text-slate-800 p-6 relative">
+    <div className="min-h-screen bg-stone-50 text-slate-800 p-4 sm:p-6 relative">
       
       {/* Header Section */}
-      <header className="mb-8 flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+      <header className="mb-8 flex flex-col sm:flex-row justify-between sm:items-center gap-4 bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-slate-100">
         <div>
           <h1 className="text-3xl font-bold text-green-900">Farmer Dashboard</h1>
           <p className="text-slate-600 mt-1">Overview of your herd's health and activity</p>

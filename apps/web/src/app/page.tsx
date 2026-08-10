@@ -31,10 +31,10 @@ export default function Home() {
   // Handle sending a message in the chat
   const handleSendMessage = async () => {
     if (!message.trim()) return;
-    
+
     const newHistory = [...chatHistory, { role: 'user', text: message }];
     setChatHistory(newHistory);
-    const userMessage = message; 
+    const userMessage = message;
     setMessage('');
 
     try {
@@ -43,17 +43,17 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage })
       });
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         setChatHistory([...newHistory, { role: 'ai', text: data.reply }]);
       } else {
-        setChatHistory([...newHistory, { role: 'ai', text: data.error || "Sorry, I had trouble thinking of an answer." }]);
+        setChatHistory([...newHistory, { role: 'ai', text: "Sorry, I had trouble thinking of an answer." }]);
       }
     } catch (error) {
       console.error("Chat error:", error);
-      setChatHistory([...newHistory, { role: 'ai', text: "Unable to reach AI Chatbot API endpoint (/api/chat)." }]);
+      setChatHistory([...newHistory, { role: 'ai', text: "Could not connect to the AI server. Make sure Express and Python are running!" }]);
     }
   };
 
@@ -65,9 +65,9 @@ export default function Home() {
       {/* ======================================================= */}
       <div className="fixed inset-0 z-[-1] overflow-hidden">
         {/* Changed blur-md to blur-sm as requested */}
-        <img 
-          src="/bg.jpg" 
-          alt="Background" 
+        <img
+          src="/bg.jpg"
+          alt="Background"
           className="w-full h-full object-cover blur-sm scale-105"
         />
         <div className="absolute inset-0 bg-slate-50/70"></div>
@@ -138,8 +138,8 @@ export default function Home() {
             India's Trusted Goat Farming Platform
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight drop-shadow-sm">
-            Learn Better. <br/>
-            Farm Smarter. <br/>
+            Learn Better. <br />
+            Farm Smarter. <br />
             <span className="text-green-700">Earn More.</span>
           </h1>
           <p className="text-lg text-slate-700 leading-relaxed max-w-xl font-medium">
@@ -151,7 +151,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-        
+
         {/* CIRCULAR IMAGE CONTAINER */}
         <div className="flex-1 flex justify-center items-center w-full">
           <div className="w-full max-w-[450px] aspect-square rounded-full overflow-hidden shadow-2xl border-8 border-white/60 backdrop-blur-md relative">
@@ -193,7 +193,7 @@ export default function Home() {
       <section id="about" className="bg-white/60 backdrop-blur-lg py-24 border-t border-slate-200/50 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl border-4 border-white/50">
-             <img src="/4.jpeg" alt="BakriWala Education" className="w-full h-full object-cover" />
+            <img src="/4.jpeg" alt="BakriWala Education" className="w-full h-full object-cover" />
           </div>
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 drop-shadow-sm">About BakriWalaOfficial</h2>
@@ -224,7 +224,7 @@ export default function Home() {
             Get exclusive access to advanced veterinary consultations, downloadable business plans, low-cost feed formulation calculators, and 1-on-1 mentorship.
           </p>
           <Link href="/login" className="inline-block px-10 py-4 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black text-lg rounded-full shadow-[0_0_20px_rgba(234,179,8,0.4)] transition transform hover:-translate-y-1">
-            Log In to Access Premium 
+            Log In to Access Premium
           </Link>
         </div>
       </section>
@@ -238,7 +238,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-extrabold mb-4 drop-shadow-md text-slate-900">What You'll Learn With Us</h2>
             <p className="text-slate-700 text-lg max-w-2xl mx-auto font-bold">Comprehensive, research-based curriculum designed for both beginners and commercial farmers.</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               "Scientific Goat Farming", "Goat Disease Identification & Treatment", "Vaccination & Deworming Schedules",
@@ -264,23 +264,23 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Farm Gallery & Events</h2>
             <p className="text-slate-400 font-medium">Glimpses of our successful farmers and training programs across India.</p>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {/* Add images named gal-1.jpg, gal-2.jpg etc. to your public folder */}
             <div className="bg-slate-800 aspect-square rounded-xl overflow-hidden border-2 border-slate-700">
-               <img src="/5 (2).jpeg" alt="Gallery 1" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
+              <img src="/5 (2).jpeg" alt="Gallery 1" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
             </div>
             <div className="bg-slate-800 aspect-square rounded-xl overflow-hidden border-2 border-slate-700">
-               <img src="/5 (3).jpeg" alt="Gallery 2" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
+              <img src="/5 (3).jpeg" alt="Gallery 2" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
             </div>
             <div className="bg-slate-800 aspect-square rounded-xl overflow-hidden border-2 border-slate-700 hidden md:block">
-               <img src="/5 (5).jpeg" alt="Gallery 3" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
+              <img src="/5 (5).jpeg" alt="Gallery 3" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
             </div>
             <div className="bg-slate-800 aspect-[2/1] md:col-span-2 rounded-xl overflow-hidden border-2 border-slate-700">
-               <img src="/5 (4).jpeg" alt="Gallery 4" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
+              <img src="/5 (4).jpeg" alt="Gallery 4" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
             </div>
             <div className="bg-slate-800 aspect-square rounded-xl overflow-hidden border-2 border-slate-700">
-               <img src="/5 (12).jpeg" alt="Gallery 5" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
+              <img src="/5 (12).jpeg" alt="Gallery 5" className="w-full h-full object-cover hover:scale-110 transition duration-500" />
             </div>
           </div>
         </div>
@@ -317,7 +317,7 @@ export default function Home() {
       <section id="contact" className="py-24 bg-slate-100/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl shadow-xl border border-white">
-            
+
             {/* Contact Info */}
             <div className="space-y-8">
               <div>
@@ -370,7 +370,7 @@ export default function Home() {
                 </button>
               </form>
             </div>
-            
+
           </div>
         </div>
       </section>
@@ -387,7 +387,7 @@ export default function Home() {
       {/* ======================================================= */}
       {isChatOpen && (
         <div className="fixed bottom-24 right-6 w-80 md:w-96 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/50 z-50 flex flex-col overflow-hidden">
-          
+
           <div className="bg-slate-900/95 backdrop-blur-md text-white p-4 flex justify-between items-center shadow-md z-10">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center text-sm">🐐</div>
@@ -404,9 +404,8 @@ export default function Home() {
           <div className="h-[350px] p-4 overflow-y-auto bg-slate-50/50 space-y-4">
             {chatHistory.map((msg, index) => (
               <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-3.5 text-sm shadow-sm font-medium ${
-                  msg.role === 'user' 
-                    ? 'bg-green-700 text-white rounded-2xl rounded-tr-sm' 
+                <div className={`max-w-[85%] p-3.5 text-sm shadow-sm font-medium ${msg.role === 'user'
+                    ? 'bg-green-700 text-white rounded-2xl rounded-tr-sm'
                     : 'bg-white border border-slate-200 text-slate-800 rounded-2xl rounded-tl-sm'
                   }`}>
                   {msg.text}
