@@ -49,11 +49,11 @@ export default function Home() {
       if (data.success) {
         setChatHistory([...newHistory, { role: 'ai', text: data.reply }]);
       } else {
-        setChatHistory([...newHistory, { role: 'ai', text: "Sorry, I had trouble thinking of an answer." }]);
+        setChatHistory([...newHistory, { role: 'ai', text: data.error || "Sorry, I had trouble thinking of an answer." }]);
       }
     } catch (error) {
       console.error("Chat error:", error);
-      setChatHistory([...newHistory, { role: 'ai', text: "Could not connect to the AI server. Make sure Express and Python are running!" }]);
+      setChatHistory([...newHistory, { role: 'ai', text: "Unable to reach AI Chatbot API endpoint (/api/chat)." }]);
     }
   };
 
