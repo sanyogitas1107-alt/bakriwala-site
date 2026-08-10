@@ -87,8 +87,10 @@ export default function Home() {
 
           <div className="flex gap-4 items-center">
             {/* Language Selector */}
-            {/* The Real Google Translate Widget */}
-            <div id="google_translate_element" className="hidden md:flex items-center justify-center"></div>
+            <div className="hidden md:flex items-center gap-1.5 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-slate-200 shadow-sm hover:border-green-600 hover:shadow transition">
+              <span className="text-base leading-none">🌐</span>
+              <div id="google_translate_element" className="flex items-center justify-center"></div>
+            </div>
 
             <Link href="/login" className="text-sm font-bold text-slate-800 hover:text-green-800 transition hidden sm:block">
               Log In
