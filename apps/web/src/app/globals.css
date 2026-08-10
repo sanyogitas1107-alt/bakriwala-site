@@ -27,26 +27,81 @@ body {
 /* PREMIUM GOOGLE TRANSLATE WIDGET STYLING                 */
 /* ======================================================= */
 
-/* Hide Google banner frame, top bar, and powered-by credits */
+/* Hide Google banner frame, top bar, tooltips, and credits */
 .goog-te-banner-frame,
 .VIpgJd-ZVi9od-ORHb-OEVmcd,
-.goog-te-gadget span,
-#goog-gt-tt {
+#goog-gt-tt,
+.goog-te-balloon-frame {
   display: none !important;
 }
 
+body {
+  top: 0 !important;
+}
+
+/* Hide raw text nodes and 'Powered by Google' in gadget */
 .goog-te-gadget {
   font-size: 0 !important;
   color: transparent !important;
-}
-
-/* Main button wrapper */
-#google_translate_element {
+  line-height: 0 !important;
   display: flex !important;
   align-items: center !important;
 }
 
-/* Custom styled trigger pill button */
+.goog-te-gadget > span,
+.goog-te-gadget > div:not(#google_translate_element) {
+  display: none !important;
+}
+
+/* Hide Google logo icon inside button */
+.goog-te-gadget-icon,
+.goog-te-gadget-simple img,
+.goog-te-menu-value img,
+.goog-te-gadget img {
+  display: none !important;
+}
+
+/* Style the native <select class="goog-te-combo"> element */
+select.goog-te-combo {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 9999px !important;
+  padding: 6px 14px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  outline: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s ease-in-out !important;
+  font-family: inherit !important;
+  height: 36px !important;
+  margin: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 14px !important;
+  padding-right: 30px !important;
+}
+
+select.goog-te-combo:hover,
+select.goog-te-combo:focus {
+  border-color: #16a34a !important;
+  color: #15803d !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+select.goog-te-combo option {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  padding: 8px !important;
+  font-weight: 500 !important;
+}
+
+/* Custom styled simple trigger pill button */
 .goog-te-gadget-simple {
   background: #ffffff !important;
   border: 1px solid #cbd5e1 !important;
@@ -63,6 +118,7 @@ body {
   transition: all 0.2s ease-in-out !important;
   cursor: pointer !important;
   outline: none !important;
+  height: 36px !important;
 }
 
 .goog-te-gadget-simple:hover {
@@ -72,14 +128,6 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Hide Google logo icon inside button */
-.goog-te-gadget-icon,
-.goog-te-gadget-simple img,
-.goog-te-menu-value img {
-  display: none !important;
-}
-
-/* Text inside simple gadget */
 .goog-te-gadget-simple span {
   color: inherit !important;
   font-family: inherit !important;
@@ -89,7 +137,6 @@ body {
   align-items: center !important;
 }
 
-/* Hide ugly pipe separator inserted by Google */
 .goog-te-gadget-simple span:nth-child(2) {
   display: none !important;
 }
@@ -105,11 +152,6 @@ body {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
   border-radius: 12px !important;
   border: 1px solid #e2e8f0 !important;
-}
-
-/* Tooltip & Popups override */
-iframe.goog-te-banner-frame {
-  display: none !important;
 }
 
 .VIpgJd-ZVi9od-v01nhe-b9n48b {
