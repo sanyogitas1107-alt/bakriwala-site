@@ -18,11 +18,14 @@ export default function Login() {
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
         
         <div className="text-center mb-8">
-          <div className="text-4xl mb-2 flex justify-center items-center gap-2">
-            🐐 <span className="text-2xl font-black text-green-900 tracking-tight">GoatCare AI</span>
+          <div className="mb-3 flex justify-center items-center gap-3">
+            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-500 shadow-md bg-slate-900 flex items-center justify-center">
+              <img src="/chatbot-icon.png" alt="GoatCare AI Mascot" className="w-full h-full object-cover scale-110" />
+            </div>
+            <span className="text-2xl font-black text-slate-900 tracking-tight">BakriWala<span className="text-green-700">Official</span></span>
           </div>
           <h2 className="text-2xl font-bold text-slate-800">Welcome Back</h2>
-          <p className="text-slate-500 mt-2">Log in to manage your herd</p>
+          <p className="text-slate-500 mt-1 text-sm">Log in to manage your farm & advisory</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-5">
