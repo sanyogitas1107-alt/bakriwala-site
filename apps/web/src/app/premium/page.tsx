@@ -75,8 +75,28 @@ export default function PremiumPage() {
           breadcrumb="Premium"
         />
 
+        {/* Member Access Quick Banner */}
+        <section className="pt-8 px-6 max-w-7xl mx-auto">
+          <div className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 text-slate-950 p-4 sm:p-5 rounded-2xl shadow-md flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-3 text-center sm:text-left">
+              <span className="text-3xl">👑</span>
+              <div>
+                <h4 className="font-black text-base">Already enrolled in VIP Membership?</h4>
+                <p className="text-xs font-semibold text-slate-900">Access your locked DPR project reports, CAD blueprints, and low-cost TMR calculators.</p>
+              </div>
+            </div>
+            <Link
+              href="/premium-content"
+              className="px-6 py-2.5 bg-slate-950 hover:bg-slate-900 text-yellow-400 font-black text-xs sm:text-sm rounded-xl shadow-lg transition whitespace-nowrap flex items-center gap-2"
+            >
+              <span>Access Premium Content (Login)</span>
+              <span>➔</span>
+            </Link>
+          </div>
+        </section>
+
         {/* Pricing Matrix */}
-        <section className="py-16 px-6 max-w-7xl mx-auto">
+        <section className="py-12 px-6 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             {tiers.map((tier, idx) => (
               <div
