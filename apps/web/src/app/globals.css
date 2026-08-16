@@ -26,8 +26,6 @@ body {
 /* ======================================================= */
 /* CLEAN GOOGLE TRANSLATE OVERRIDES                        */
 /* ======================================================= */
-
-/* Hide Google Translate top banner, tooltips, and default branding */
 .goog-te-banner-frame,
 .VIpgJd-ZVi9od-ORHb-OEVmcd,
 #goog-gt-tt,
@@ -41,7 +39,67 @@ body {
   top: 0 !important;
 }
 
-/* Hide default Google widget box (we use a custom styled select trigger) */
 #google_translate_element .goog-te-gadget {
   display: none !important;
+}
+
+/* ======================================================= */
+/* CUSTOM ANIMATIONS FOR DYNAMIC GALLERY & UI              */
+/* ======================================================= */
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(34, 197, 94, 0.5); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite;
+}
+
+/* Hide scrollbars for clean UI */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -291,42 +291,67 @@ export default function Home() {
         </section>
 
         {/* ======================================================= */}
-        {/* 6. PHOTO GALLERY PREVIEW                                */}
+        {/* 6. DYNAMIC PHOTO GALLERY PREVIEW                        */}
         {/* ======================================================= */}
-        <section className="py-20 bg-slate-900 text-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <section className="py-20 bg-slate-900 text-white overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 mb-10">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <span className="text-yellow-400 font-extrabold text-xs uppercase tracking-wider bg-yellow-400/10 px-3 py-1 rounded-full border border-yellow-400/20">
-                  Visual Tour
+                  ✨ Interactive Visual Tour
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-black mt-2">
-                  Farm & Workshop Gallery
+                  Farm & Workshop Live Gallery
                 </h2>
               </div>
               <Link
                 href="/gallery"
-                className="text-yellow-400 font-bold text-sm hover:underline flex items-center gap-1"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-md transition transform hover:scale-105"
               >
-                <span>View Full 16-Photo Gallery</span>
+                <span>Open Full Interactive Gallery (16 Photos)</span>
                 <span>➔</span>
               </Link>
             </div>
+          </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['/5 (2).jpeg', '/5 (3).jpeg', '/5 (7).jpeg', '/5 (11).jpeg'].map((src, i) => (
+          {/* Animated Marquee Strip */}
+          <div className="flex overflow-hidden py-4">
+            <div className="animate-marquee flex items-center gap-6">
+              {[
+                { src: '/1.jpeg', title: 'Stall-Fed System', cat: 'Farm Unit' },
+                { src: '/4.jpeg', title: 'Veterinary Class', cat: 'Practical' },
+                { src: '/5 (1).jpeg', title: 'Barbari Seed Stock', cat: 'Breed' },
+                { src: '/5 (2).jpeg', title: 'Farm Visit & Audit', cat: 'Tour' },
+                { src: '/5 (3).jpeg', title: 'TMR Feeding Aisles', cat: 'Facility' },
+                { src: '/5 (4).jpeg', title: 'Pedigree Sire Buck', cat: 'Breed' },
+                { src: '/5 (6).jpeg', title: 'Vaccine Injection Class', cat: 'Health' },
+                { src: '/5 (8).jpeg', title: 'Silage Preparation', cat: 'Nutrition' },
+                { src: '/5 (10).jpeg', title: 'Graduation Batch', cat: 'Event' },
+                { src: '/5 (12).jpeg', title: 'Jamunapari King', cat: 'Breed' },
+                { src: '/1.jpeg', title: 'Stall-Fed System', cat: 'Farm Unit' },
+                { src: '/4.jpeg', title: 'Veterinary Class', cat: 'Practical' },
+                { src: '/5 (1).jpeg', title: 'Barbari Seed Stock', cat: 'Breed' },
+                { src: '/5 (2).jpeg', title: 'Farm Visit & Audit', cat: 'Tour' },
+                { src: '/5 (3).jpeg', title: 'TMR Feeding Aisles', cat: 'Facility' },
+                { src: '/5 (4).jpeg', title: 'Pedigree Sire Buck', cat: 'Breed' }
+              ].map((item, i) => (
                 <Link
                   key={i}
                   href="/gallery"
-                  className="aspect-square rounded-2xl overflow-hidden border border-slate-700 bg-slate-800 group relative block"
+                  className="relative w-64 sm:w-80 h-44 sm:h-52 rounded-2xl overflow-hidden border border-slate-700 bg-slate-800 flex-shrink-0 group shadow-lg transform hover:scale-105 transition duration-300"
                 >
                   <img
-                    src={src}
-                    alt="Gallery Thumbnail"
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                    src={item.src}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-115 transition duration-700"
                   />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-xs font-bold">
-                    View in Gallery ➔
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">
+                    <span className="text-[10px] font-extrabold uppercase text-yellow-400 bg-yellow-400/20 px-2 py-0.5 rounded w-max border border-yellow-400/30">
+                      {item.cat}
+                    </span>
+                    <h4 className="text-sm font-bold text-white mt-1 group-hover:text-yellow-300 transition">
+                      {item.title}
+                    </h4>
                   </div>
                 </Link>
               ))}
