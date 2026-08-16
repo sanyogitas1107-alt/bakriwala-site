@@ -6,12 +6,14 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SocialBar from '@/components/SocialBar';
 import Chatbot from '@/components/Chatbot';
+import RazorpayModal, { PlanDetails } from '@/components/RazorpayModal';
 
 export default function PremiumContentPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState<PlanDetails | null>(null);
   const [activeTab, setActiveTab] = useState<'dpr' | 'feed-calc' | 'masterclasses' | 'doctor' | 'seed-stock'>('dpr');
 
   // Feed Calculator State
@@ -210,20 +212,36 @@ export default function PremiumContentPage() {
                   </button>
                 </form>
 
-                {/* Quick 1-Click Demo Sign in */}
+                {/* Quick 1-Click Demo Sign in & Razorpay Purchase */}
                 <div className="mt-6 pt-6 border-t border-slate-100 text-center space-y-3">
-                  <p className="text-xs text-slate-500 font-semibold">Testing or Exploring?</p>
+                  <button
+                    onClick={() =>
+                      setSelectedPlan({
+                        name: 'Farmer Starter',
+                        priceNum: 1499,
+                        priceStr: '₹1,499',
+                        period: '/ 6 Months',
+                        features: ['DPR Reports', 'Feed Calculator', 'Vet Support'],
+                      })
+                    }
+                    type="button"
+                    className="w-full py-3 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-slate-950 font-black rounded-xl text-xs sm:text-sm transition shadow-md flex items-center justify-center gap-2"
+                  >
+                    <span>💳 Unlock VIP Access with Razorpay (₹1,499)</span>
+                  </button>
+
+                  <p className="text-[11px] text-slate-400 font-semibold">Testing or Exploring?</p>
                   <button
                     onClick={handleQuickDemoLogin}
                     className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-yellow-400 font-bold rounded-xl text-xs transition flex items-center justify-center gap-2 border border-slate-700"
                   >
-                    <span>⚡ 1-Click VIP Demo Access</span>
+                    <span>⚡ 1-Click Instant Demo Login</span>
                   </button>
 
                   <div className="pt-2 text-xs text-slate-500">
-                    Not a VIP Member yet?{' '}
+                    Want to see all membership plans?{' '}
                     <Link href="/premium" className="text-green-700 font-bold hover:underline">
-                      View Membership Plans
+                      View Pricing Tiers
                     </Link>
                   </div>
                 </div>
@@ -618,6 +636,16 @@ export default function PremiumContentPage() {
 
           </section>
         )}
+
+        {/* Razorpay Checkout Modal */}
+        <RazorpayModal
+          plan={selectedPlan}
+          onClose={() => setSelectedPlan(null)}
+          onSuccess={(auth) => {
+            setIsLoggedIn(true);
+            setUserEmail(auth.email);
+          }}
+        />
 
       </main>
 

@@ -18,9 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Preconnect for Google Translate assets */}
+        {/* Preconnect for Google Translate & Razorpay assets */}
         <link rel="preconnect" href="https://translate.google.com" />
         <link rel="preconnect" href="https://translate.googleapis.com" />
+        <link rel="preconnect" href="https://checkout.razorpay.com" />
       </head>
       <body className={inter.className}>
         {/* Persistent Hidden Translate Container */}
@@ -62,6 +63,12 @@ export default function RootLayout({
         <Script 
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" 
           strategy="afterInteractive" 
+        />
+
+        {/* Razorpay Standard Checkout Script */}
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="lazyOnload"
         />
       </body>
     </html>
