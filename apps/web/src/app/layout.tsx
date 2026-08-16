@@ -6,8 +6,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BakriWalaOfficial',
-  description: 'India\'s Trusted Goat Farming Platform',
+  title: 'BakriWalaOfficial - Learn Better. Farm Smarter. Earn More.',
+  description: "India's Premier Goat Farming Education, Telemedicine & AI Advisory Platform.",
 }
 
 export default function RootLayout({
@@ -17,25 +17,52 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Preconnect for Google Translate assets */}
+        <link rel="preconnect" href="https://translate.google.com" />
+        <link rel="preconnect" href="https://translate.googleapis.com" />
+      </head>
       <body className={inter.className}>
+        {/* Persistent Hidden Translate Container */}
+        <div 
+          id="google_translate_element" 
+          style={{ 
+            position: 'fixed', 
+            top: '-9999px', 
+            left: '-9999px', 
+            width: '1px', 
+            height: '1px', 
+            overflow: 'hidden', 
+            opacity: 0, 
+            pointerEvents: 'none',
+            zIndex: -1 
+          }} 
+          aria-hidden="true"
+        />
+
         {children}
-        
-        {/* Google Translate Scripts */}
+
+        {/* Global Google Translate Initialization Callback */}
+        <Script id="google-translate-init" strategy="beforeInteractive">
+          {`
+            window.googleTranslateElementInit = function() {
+              if (window.google && window.google.translate) {
+                new window.google.translate.TranslateElement({
+                  pageLanguage: 'en',
+                  includedLanguages: 'en,hi,mr,bn,te,ta,gu,pa,ur',
+                  layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+                  autoDisplay: false
+                }, 'google_translate_element');
+              }
+            };
+          `}
+        </Script>
+
+        {/* Google Translate Script */}
         <Script 
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" 
           strategy="afterInteractive" 
         />
-        <Script id="google-translate-init" strategy="afterInteractive">
-          {`
-            function googleTranslateElementInit() {
-              new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,hi,mr,bn,te', // English, Hindi, Marathi, Bangla, Telugu
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-              }, 'google_translate_element');
-            }
-          `}
-        </Script>
       </body>
     </html>
   )

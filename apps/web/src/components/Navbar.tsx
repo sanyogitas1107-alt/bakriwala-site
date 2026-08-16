@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -9,15 +9,49 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('en');
 
+  // Read current translated language cookie on mount
+  useEffect(() => {
+    try {
+      const match = document.cookie.match(/googtrans=\/en\/([a-zA-Z]{2,3})/i);
+      if (match && match[1]) {
+        setSelectedLang(match[1].toLowerCase());
+      }
+    } catch (e) {
+      console.error('Error reading language cookie:', e);
+    }
+  }, []);
+
   const handleLanguageChange = (langCode: string) => {
     setSelectedLang(langCode);
-    const combo = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-    if (combo) {
-      combo.value = langCode;
-      combo.dispatchEvent(new Event('change'));
-    } else {
-      document.cookie = `googtrans=/en/${langCode}; path=/`;
-      document.cookie = `googtrans=/en/${langCode}; domain=.${window.location.hostname}; path=/`;
+
+    try {
+      // 1. Set cookie for all domain variants
+      const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
+      document.cookie = `googtrans=/en/${langCode}; expires=${expires}; path=/;`;
+      
+      const hostname = window.location.hostname;
+      if (hostname && !hostname.includes('localhost') && !/^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+        const parts = hostname.split('.');
+        if (parts.length > 1) {
+          const rootDomain = parts.slice(-2).join('.');
+          document.cookie = `googtrans=/en/${langCode}; expires=${expires}; path=/; domain=.${rootDomain};`;
+        }
+        document.cookie = `googtrans=/en/${langCode}; expires=${expires}; path=/; domain=.${hostname};`;
+      }
+
+      // 2. Trigger Google Translate native combo if present
+      const combo = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+      if (combo) {
+        combo.value = langCode;
+        combo.dispatchEvent(new Event('change'));
+      }
+
+      // 3. Reload page to ensure complete App Router translation
+      setTimeout(() => {
+        window.location.reload();
+      }, 150);
+    } catch (err) {
+      console.error('Language switch error:', err);
       window.location.reload();
     }
   };
@@ -84,7 +118,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2 sm:gap-4">
           
           {/* Language Selector */}
-          <div className="hidden sm:flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-slate-200 shadow-xs hover:border-green-600 focus-within:border-green-600 transition">
+          <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-slate-300 shadow-xs hover:border-green-600 focus-within:border-green-600 transition">
             <span className="text-sm">🌐</span>
             <select
               value={selectedLang}
@@ -97,8 +131,11 @@ export default function Navbar() {
               <option value="mr">मराठी (Marathi)</option>
               <option value="bn">বাংলা (Bengali)</option>
               <option value="te">తెలుగు (Telugu)</option>
+              <option value="ta">தமிழ் (Tamil)</option>
+              <option value="gu">ગુજરાતી (Gujarati)</option>
+              <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+              <option value="ur">اردو (Urdu)</option>
             </select>
-            <div id="google_translate_element" className="hidden"></div>
           </div>
 
           <Link
@@ -165,14 +202,21 @@ export default function Navbar() {
                 </span>
                 <select
                   value={selectedLang}
-                  onChange={(e) => handleLanguageChange(e.target.value)}
-                  className="bg-white border border-slate-300 rounded-md text-xs font-bold text-slate-800 py-1 px-2 outline-none"
+                  onChange={(e) => {
+                    handleLanguageChange(e.target.value);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-white border border-slate-300 rounded-md text-xs font-bold text-slate-800 py-1.5 px-2 outline-none"
                 >
                   <option value="en">English</option>
                   <option value="hi">हिंदी (Hindi)</option>
                   <option value="mr">मराठी (Marathi)</option>
                   <option value="bn">বাংলা (Bengali)</option>
                   <option value="te">తెలుగు (Telugu)</option>
+                  <option value="ta">தமிழ் (Tamil)</option>
+                  <option value="gu">ગુજરાતી (Gujarati)</option>
+                  <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                  <option value="ur">اردو (Urdu)</option>
                 </select>
               </div>
 
